@@ -1,1 +1,22 @@
-{}
+{
+    "https://biznes.pap.pl/espi/espi/2025?company=1&selectCompany=1": {
+        "name": "11 bit studios SA",
+        "emoji": "\ud83c\udfae",
+        "message": {
+            "content": "11 bit studios SA \ud83c\udfae",
+            "id": 1342635833189994507
+        }
+    },
+    "https://biznes.pap.pl/espi/espi/2025?company=1619&selectCompany=1619": {
+        "name": "Creotech Instruments SA",
+        "emoji": "\ud83d\udef0\ufe0f",
+        "message": {
+            "content": "Creotech Instruments SA \ud83d\udef0\ufe0f",
+            "id": 1342635924437336187
+        }
+    },
+    "https://biznes.pap.pl/espi/espi/2025?company=798&selectCompany=798": {
+        "name": "3R Games SA",
+        "emoji": "\ud83c\udfae"
+    }
+}
