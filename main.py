@@ -13,9 +13,9 @@ TOKEN = config('DISCORD_TOKEN')
 GUILD = config('DISCORD_GUILD')
 OPENAI_API_KEY = config("OPENAI_API_KEY")
 
-# PL_STOCKS_CHANNEL = "⌊🌍⌉-czat-polska"
-PL_STOCKS_CHANNEL = "stock"
-CHECK_INTERVAL = 10  # Every 10 s
+PL_STOCKS_CHANNEL = "⌊🌍⌉-czat-polska"
+# PL_STOCKS_CHANNEL = "stock"
+CHECK_INTERVAL = 60  # Every 10 s
 ESPI_HISTORY_FILE = "espi_history.json"
 PINNED_STOCKS_FILE = "pinned_stocks.json"
 
