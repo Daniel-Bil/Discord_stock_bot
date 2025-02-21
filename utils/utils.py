@@ -1,5 +1,4 @@
 import requests
-import yfinance as yf
 from bs4 import BeautifulSoup
 
 
