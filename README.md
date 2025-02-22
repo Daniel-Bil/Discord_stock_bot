@@ -2,9 +2,13 @@
 
 <img src="images/espi_bot_logo.png" width="150"/>
 
-## 🔹 What is this bot?
-It is a discord bot with a purpose of informing about meaningfull events of tracked Polish stock market comapnies.
+# 📌 What is an ESPI Report?
+ESPI (Electronic System fo Information Transmission) is an official reposrting system for companies listed on the Warsaw stock exchange (GPW).  
+🔹Mandatory Reporting -> Publicly traded companies are required to disclose important information abut their operations.  
+🔹Types of Reports -> There include current reports (e.g., new contracts, management changes, major financial events) and periodic reports (e.g, quarterly financial statements).  
+🔹Availability -> ESPI reports are publicly accessible on platforms like biznes.pap.pl and the GPW website  
 
+💡 With this bot, Discord users can receive real-time notifications about new ESPI reports without manually checking financial websites. 🚀  
 ## 🔹 Features
 ✅ Real-Time ESPI Alerts – Tracks new ESPI reports and posts updates.  
 ✅ Automated Filtering – Only new ESPIs are notified (no duplicates).  
