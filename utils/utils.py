@@ -242,10 +242,12 @@ def decode_to_number(input_str: str, ticker_to_number: dict, symbol_to_number: d
 
     if len(matches) == 1:
         match_name = matches[0][0]
+        print(match_name)
         return name_to_number[match_name]
 
     elif len(matches) > 1:
         options = [match[0] for match in matches]
+        print(options)
         raise ValueError(f"Ambiguous company name. Did you mean: {', '.join(options)}?")
 
     else:

@@ -126,7 +126,7 @@ class ESPITracker(commands.Cog):
     @commands.command()
     async def add(self, ctx, input_str):
         try:
-            number = decode_to_number(input_str,self.ticker_to_id,self.symbol_to_id,self.stock_id)
+            number = decode_to_number(input_str, self.ticker_to_id, self.symbol_to_id, self.stock_id)
             await self._add_company_to_dict(ctx, number)
         except ValueError as e:
             await ctx.send(str(e))
