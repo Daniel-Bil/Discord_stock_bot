@@ -30,8 +30,11 @@ class ESPITracker(commands.Cog):
         self.symbol_to_id = self.load_json(SYMBOL_TO_ID_FILE)
         self.ticker_to_id = self.load_json(TICKER_TO_ID_FILE)
 
-        self.check_espi.start()
-        print("check_espi loop started")
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print("✅ Starting ESPI loop from on_ready")
+        if not self.check_espi.is_running():
+            self.check_espi.start()
 
     def load_json(self, file):
         """Load JSON data from a file."""
