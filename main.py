@@ -21,6 +21,7 @@ async def on_ready():
 
 async def setup():
     # Load the ESPITracker cog
+    print("setup")
     await bot.add_cog(ESPITracker(bot))
 
 if __name__ == "__main__":

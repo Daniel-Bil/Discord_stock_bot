@@ -228,8 +228,17 @@ def decode_to_number(input_str: str, ticker_to_number: dict, symbol_to_number: d
     if input_str.upper() in symbol_to_number:
         return symbol_to_number[input_str.upper()]
 
+    for name in name_to_number:
+        if input_str.lower() == name.lower():
+            return name_to_number[name]
+
     # 4. Full name fuzzy match
-    matches = process.extract(input_str, name_to_number.keys(), scorer=fuzz.token_sort_ratio, score_cutoff=95)
+    matches = process.extract(
+        input_str.lower(),
+        [name.lower() for name in name_to_number.keys()],
+        scorer=fuzz.ratio,
+        score_cutoff=95
+    )
 
     if len(matches) == 1:
         match_name = matches[0][0]
