@@ -183,3 +183,8 @@ class ESPITracker(commands.Cog):
                 self.save_json(ESPI_HISTORY_FILE, self.espi_history)
             except Exception as e:
                 print(f"Error while checking {company_data['name']}: {e}")
+
+    @check_espi.before_loop
+    async def before_check_espi(self):
+        print("⏳ Waiting for bot to be ready before starting check_espi...")
+        await self.bot.wait_until_ready()
