@@ -98,6 +98,7 @@ class ESPITracker(commands.Cog):
 
     async def _add_company_to_dict(self, ctx, number: str) -> None:
         """Adds a company to track ESPI announcements and generates an emoji."""
+        print(f"add {number}")
         if ctx.channel.name != PL_STOCKS_CHANNEL:
             await ctx.send(f"This command can only be used in {PL_STOCKS_CHANNEL}.")
             return
