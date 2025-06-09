@@ -215,9 +215,9 @@ def get_article_and_return_pdf(url):
             data.append([link["href"],link.text.strip()])
     return data
 
-def decode_to_number(input_str: str, ticker_to_number: dict, symbol_to_number: dict, name_to_number: dict) -> str:
+def decode_to_number(input_str: str, ticker_to_number: dict, symbol_to_number: dict, stock_id: dict) -> str:
     # 1. Direct number
-    if input_str.isdigit():
+    if input_str.isdigit() and input_str in stock_id:
         return input_str
 
     # 2. Ticker
@@ -228,22 +228,27 @@ def decode_to_number(input_str: str, ticker_to_number: dict, symbol_to_number: d
     if input_str.upper() in symbol_to_number:
         return symbol_to_number[input_str.upper()]
 
-    for name in name_to_number:
-        if input_str.lower() == name.lower():
-            return name_to_number[name]
-
     # 4. Full name fuzzy match
+    reversed_map = {v: k for k, v in stock_id.items()}
+
+    for name in reversed_map:
+        if input_str.lower() == name.lower():
+            return reversed_map[name]
+
     matches = process.extract(
         input_str.lower(),
-        [name.lower() for name in name_to_number.keys()],
+        [name.lower() for name in reversed_map.keys()],
         scorer=fuzz.ratio,
-        score_cutoff=95
+        score_cutoff=90
     )
 
     if len(matches) == 1:
         match_name = matches[0][0]
         print(match_name)
-        return name_to_number[match_name]
+        for key in reversed_map:
+            if key.lower() == match_name:
+                return reversed_map[key]
+
 
     elif len(matches) > 1:
         options = [match[0] for match in matches]

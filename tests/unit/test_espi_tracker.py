@@ -2,18 +2,18 @@ import sys
 from pathlib import Path
 
 import pytest
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 from unittest.mock import AsyncMock, MagicMock, patch
 from cogs.espi_tracker import ESPITracker
 
 
 @pytest.mark.asyncio
 async def test_add_company_success(monkeypatch):
+    monkeypatch.setattr("cogs.espi_tracker.ESPITracker.load_json", lambda self, file: {})
     tracker = ESPITracker(bot=MagicMock())
     ctx = AsyncMock()
     ctx.channel.name = "⌊🌍⌉-czat-polska"
     ctx.send = AsyncMock()
-
     monkeypatch.setattr("cogs.espi_tracker.get_company_name", lambda url: "Test Corp")
     monkeypatch.setattr("cogs.espi_tracker.get_espi_announcements", lambda url: [])
     tracker.get_company_emoji = MagicMock(return_value="🚀")
