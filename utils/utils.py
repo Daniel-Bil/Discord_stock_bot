@@ -257,6 +257,3 @@ def decode_to_number(input_str: str, ticker_to_number: dict, symbol_to_number: d
 
     else:
         raise ValueError("Unrecognized company identifier.")
-
-def prepare_message():
-    raise NotImplementedError

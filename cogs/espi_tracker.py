@@ -2,6 +2,8 @@ from discord.ext import commands, tasks
 import discord
 import json
 from pathlib import Path
+
+from utils.espi_classifier import handle_new_espi
 from utils.utils import get_company_name, inform_new_espies, decode_to_number, get_espi_announcements
 from openai import OpenAI
 from colorama import Fore
@@ -29,6 +31,7 @@ class ESPITracker(commands.Cog):
         self.stock_id = self.load_json(STOCK_ID_FILE)
         self.symbol_to_id = self.load_json(SYMBOL_TO_ID_FILE)
         self.ticker_to_id = self.load_json(TICKER_TO_ID_FILE)
+        self.last_message_url = None
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -128,6 +131,11 @@ class ESPITracker(commands.Cog):
         self.save_json(ESPI_HISTORY_FILE, self.espi_history)
 
     @commands.command()
+    async def link(self, ctx):
+        if self.last_message_url is not None:
+            await ctx.send(f"url {self.last_message_url}")
+
+    @commands.command()
     async def add(self, ctx, input_str):
         try:
             number = decode_to_number(input_str, self.ticker_to_id, self.symbol_to_id, self.stock_id)
@@ -176,11 +184,19 @@ class ESPITracker(commands.Cog):
 
                 for espi in new_espies:
                     self.espi_history[number].append(espi)
-                    message = await channel.send(
-                        f"📢 **{company_data['name']} {company_data['emoji']}**\n"
-                        f"🕒 {espi['date']} {espi['time']}\n"
-                        f"📌 **{espi['title']}**\n🔗 [View on ESPI]({url})"
-                    )
+                    self.last_message_url = f"https://biznes.pap.pl/{espi['url']}"
+
+                    text = handle_new_espi(espi)
+
+                    intro = f"📢 **{company_data['name']} {company_data['emoji']}**\n\n"
+
+                    full_message = intro + text
+
+                    if len(full_message) > 2000:
+                        full_message = full_message[:1997] + "..."
+
+                    message = await channel.send(full_message)
+
                     self.pinned_stocks[number]["messages"].append({"content": message.content, "id": message.id, "pinned": False})
                 print(f"{Fore.GREEN}New ESPIs sent for {company_data['name']}{Fore.RESET}")
                 self.save_json(PINNED_STOCKS_FILE, self.pinned_stocks)
