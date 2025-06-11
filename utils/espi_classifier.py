@@ -19,16 +19,16 @@ def classify_espi_type(title: str) -> ESPIType:
     return ESPIType.GENERAL
 
 def handle_new_espi(espi:dict):
-    espi_type = classify_espi_type(espi["title"])
-
+    espi_type = classify_espi_type(espi["title"].lower())
+    espi_url = f"https://biznes.pap.pl{espi['url']}"
     if espi_type == ESPIType.RESULTS:
-        return handle_results_espi(f"https://biznes.pap.pl/{espi['url']}")
+        return handle_results_espi(espi_url)
 
     if espi_type == ESPIType.SHARES:
-        return f"https://biznes.pap.pl/{espi['url']}\n"+handle_general_espi(f"https://biznes.pap.pl/{espi['url']}")
+        return f"https://biznes.pap.pl/{espi['url']}\n"+handle_general_espi(espi_url)
 
     if espi_type == ESPIType.GENERAL:
-        return handle_general_espi(f"https://biznes.pap.pl/{espi['url']}")
+        return handle_general_espi(espi_url)
 
 
 
@@ -75,10 +75,10 @@ def handle_general_espi(url):
     return text
 
 if __name__ == "__main__":
-    text = handle_general_espi("https://biznes.pap.pl/wiadomosci/firmy/11-bit-studios-sa-62020-zbycie-akcji-przez-osobe-zarzadzajaca")
-    print(text)
-
+    # text = handle_general_espi("https://biznes.pap.pl/wiadomosci/firmy/11-bit-studios-sa-62020-zbycie-akcji-przez-osobe-zarzadzajaca")
+    # print(text)
+    print(handle_new_espi({"title": "Raport okresowy półroczny za 2024 PSr", "url": "/wiadomosci/firmy/synektik-sa-raport-okresowy-polroczny-za-2024-psr"}))
     text = handle_results_espi(
-        "https://biznes.pap.pl/wiadomosci/firmy/11-bit-studios-sa-raport-okresowy-roczny-rr-2")
+        "https://biznes.pap.pl/wiadomosci/firmy/synektik-sa-raport-okresowy-polroczny-za-2024-psr")
 
     print(text)

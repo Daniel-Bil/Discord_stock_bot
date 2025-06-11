@@ -184,7 +184,7 @@ class ESPITracker(commands.Cog):
 
                 for espi in new_espies:
                     self.espi_history[number].append(espi)
-                    self.last_message_url = f"https://biznes.pap.pl/{espi['url']}"
+                    self.last_message_url = f"https://biznes.pap.pl{espi['url']}"
 
                     text = handle_new_espi(espi)
 
